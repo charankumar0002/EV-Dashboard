@@ -4,8 +4,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const EVTypeDistribution = (data ) => {
-  const dataSet = data?.data
+const EVTypeDistribution = ( data ) => {
+  const dataSet = data?.data;
   const chartRef = useRef(null);
 
   if (!dataSet || dataSet.length === 0) {
@@ -31,8 +31,10 @@ const EVTypeDistribution = (data ) => {
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl font-bold">EV Type Distribution</h2>
-      <Pie ref={chartRef} data={chartData} />
+      <h2 className="text-teal-600 text-xl font-bold mb-4">EV Type Distribution</h2>
+      <div className="h-full max-h-[500px] flex justify-center">
+        <Pie ref={chartRef} data={chartData} options={{ responsive: true }} />
+      </div>
     </div>
   );
 };

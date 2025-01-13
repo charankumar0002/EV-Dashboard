@@ -39,7 +39,8 @@ const ElectricVehicleGraph = (data ) => {
 
   return (
     <div className="mt-8 bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl">Electric Vehicle Adoption Over Time</h2>
+    <h2 className="text-teal-600 text-xl mb-4">Electric Vehicle Adoption Over Time</h2>
+    <div className="h-[500px] flex justify-center" > {/* Set the max height for the chart here */}
       <Line
         data={chartData}
         options={{
@@ -74,6 +75,7 @@ const ElectricVehicleGraph = (data ) => {
         }}
       />
     </div>
+  </div>
   );
 };
 

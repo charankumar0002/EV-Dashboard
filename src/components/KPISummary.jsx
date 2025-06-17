@@ -4,7 +4,13 @@ import CountUp from 'react-countup';
 const KPISummary = ( data ) => {
   const dataSet = data.data;
   const totalVehicles = dataSet.length;
-  const cafvEligible = dataSet.filter((item) => item["CAFV Eligibility"] === "Eligible").length;
+  // The dataset stores eligibility information under
+  // "Clean Alternative Fuel Vehicle (CAFV) Eligibility".
+  // Using the wrong field name results in zero eligible vehicles.
+  const cafvEligible = dataSet.filter(
+    (item) => item["Clean Alternative Fuel Vehicle (CAFV) Eligibility"] ===
+      "Clean Alternative Fuel Vehicle Eligible"
+  ).length;
   const avgMsrp = (dataSet.reduce((sum, item) => sum + (item["Base MSRP"] || 0), 0) / totalVehicles).toFixed(2);
   const avgRange = (dataSet.reduce((sum, item) => sum + (item["Electric Range"] || 0), 0) / totalVehicles).toFixed(1);
 

@@ -53,7 +53,6 @@ const Dashboard = () => {
         <aside className="w-60 bg-white p-4 shadow-md space-y-2">
           {navItems.map(({ id, label, icon: Icon }) => (
             <button
-
               key={id}
               onClick={() => handleTabChange(id)}
               className={`flex items-center w-full px-3 py-2 rounded-lg text-left transition-colors duration-200 ${
@@ -63,51 +62,8 @@ const Dashboard = () => {
               <Icon size={20} className="mr-2" />
               {label}
             </button>
-
-            <button
-              onClick={() => handleTabChange("TopMakesModels")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "TopMakesModels" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
-            >
-              <FaIndustry size={20} className="mr-2" />
-              Top Makes and Models
-            </button>
-            <button
-              onClick={() => handleTabChange("CAFVEligibility")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "CAFVEligibility" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
-            >
-              <FaRegLightbulb size={20} className="mr-2" />
-              CAFV Eligibility Analysis
-            </button>
-            <button
-              onClick={() => handleTabChange("GeographicalDistribution")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "GeographicalDistribution" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
-            >
-              <FaMapMarkedAlt size={20} className="mr-2" />
-              Geographical Distribution
-            </button>
-            <button
-              onClick={() => handleTabChange("MakerBasedAnalysis")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "MakerBasedAnalysis" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
-            >
-              <FaIndustry size={20} className="mr-2" />
-              Maker Based Analysis
-            </button>
-            <button
-              onClick={() => handleTabChange("AgeDistribution")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "AgeDistribution" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
-            >
-              <FaLayerGroup size={20} className="mr-2" />
-              Vehicle Age Distribution
-            </button>
-            <button
-              onClick={() => handleTabChange("RangeVsMSRP")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "RangeVsMSRP" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
-            >
-              <FaChartLine size={20} className="mr-2" />
-              Range vs MSRP
-            </button>
-          </div>
-        </section>
+          ))}
+        </aside>
 
         <main className="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
           <div className="h-72 flex items-center justify-center">

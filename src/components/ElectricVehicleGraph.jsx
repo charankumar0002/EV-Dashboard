@@ -1,4 +1,5 @@
 import { Line } from "react-chartjs-2";
+import PropTypes from "prop-types";
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
@@ -77,6 +78,10 @@ const ElectricVehicleGraph = (data ) => {
     </div>
   </div>
   );
+};
+
+ElectricVehicleGraph.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ElectricVehicleGraph;

@@ -6,8 +6,20 @@ import EligibilityAnalysis from "../components/EligibilityAnalysis";
 import KPISummary from "../components/KPISummary";
 import TopMakesModels from "../components/TopMakesModels";
 import MakerBasedAnalysis from "../components/MakerBasedAnalysis";
-import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb } from 'react-icons/fa';
+
+import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb, FaLayerGroup, FaChartLine } from 'react-icons/fa';
+import VehicleAgeDistribution from "../components/VehicleAgeDistribution";
+import RangeVsMSRPScatter from "../components/RangeVsMSRPScatter";
 import useRealTimeData from "../hooks/useRealTimeData";
+
+const navItems = [
+  { id: "EVGraph", label: "Electric Vehicle Graph", icon: FaChartBar },
+  { id: "EVTypeDistribution", label: "EV Type Distribution", icon: FaCar },
+  { id: "TopMakesModels", label: "Top Makes and Models", icon: FaIndustry },
+  { id: "CAFVEligibility", label: "CAFV Eligibility Analysis", icon: FaRegLightbulb },
+  { id: "GeographicalDistribution", label: "Geographical Distribution", icon: FaMapMarkedAlt },
+  { id: "MakerBasedAnalysis", label: "Maker Based Analysis", icon: FaIndustry },
+];
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("EVGraph");
@@ -28,7 +40,7 @@ const Dashboard = () => {
   return (
     <div className="bg-gray-100 min-h-screen text-black flex flex-col">
 
-      <header className="bg-gradient-to-r from-primary-500 to-cyan-600 text-white p-6 shadow-lg">
+      <header className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white p-6 shadow-lg">
         <h1 className="text-3xl font-bold text-center tracking-wide">Electric Vehicle Dashboard</h1>
       </header>
 
@@ -36,24 +48,22 @@ const Dashboard = () => {
         <KPISummary data={data} />
       </section>
 
-      <main className="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
-        {/* Tab Navigation Buttons */}
-        <section className="mb-6">
-          <div className="flex justify-start space-x-4">
+      <div className="flex flex-grow overflow-hidden">
+        {/* Sidebar Navigation */}
+        <aside className="w-60 bg-white p-4 shadow-md space-y-2">
+          {navItems.map(({ id, label, icon: Icon }) => (
             <button
-              onClick={() => handleTabChange("EVGraph")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "EVGraph" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
+
+              key={id}
+              onClick={() => handleTabChange(id)}
+              className={`flex items-center w-full px-3 py-2 rounded-lg text-left transition-colors duration-200 ${
+                activeTab === id ? "bg-teal-600 text-white" : "text-teal-600 hover:bg-teal-50"
+              }`}
             >
-              <FaChartBar size={20} className="mr-2" />
-              Electric Vehicle Graph
+              <Icon size={20} className="mr-2" />
+              {label}
             </button>
-            <button
-              onClick={() => handleTabChange("EVTypeDistribution")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "EVTypeDistribution" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
-            >
-              <FaCar size={20} className="mr-2" />
-              EV Type Distribution
-            </button>
+
             <button
               onClick={() => handleTabChange("TopMakesModels")}
               className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "TopMakesModels" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
@@ -82,21 +92,36 @@ const Dashboard = () => {
               <FaIndustry size={20} className="mr-2" />
               Maker Based Analysis
             </button>
+            <button
+              onClick={() => handleTabChange("AgeDistribution")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "AgeDistribution" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaLayerGroup size={20} className="mr-2" />
+              Vehicle Age Distribution
+            </button>
+            <button
+              onClick={() => handleTabChange("RangeVsMSRP")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "RangeVsMSRP" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaChartLine size={20} className="mr-2" />
+              Range vs MSRP
+            </button>
           </div>
         </section>
 
-        {/* Graph Rendering */}
-        <section className="">
-          <div className="h-72"> {/* Set a fixed height for the graphs */}
+        <main className="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
+          <div className="h-72 flex items-center justify-center">
             {activeTab === "EVGraph" && <ElectricVehicleGraph data={data} />}
             {activeTab === "EVTypeDistribution" && <EVTypeDistribution data={data} />}
             {activeTab === "TopMakesModels" && <TopMakesModels data={data} />}
             {activeTab === "CAFVEligibility" && <EligibilityAnalysis data={data} />}
             {activeTab === "GeographicalDistribution" && <GeographicalInsights data={data} />}
             {activeTab === "MakerBasedAnalysis" && <MakerBasedAnalysis data={data} />}
+            {activeTab === "AgeDistribution" && <VehicleAgeDistribution data={data} />}
+            {activeTab === "RangeVsMSRP" && <RangeVsMSRPScatter data={data} />}
           </div>
-        </section>
-      </main>
+        </main>
+      </div>
 
       <footer className="bg-primary-600 text-white p-4 text-center">
         <p>© 2025 Electric Vehicle Dashboard</p>

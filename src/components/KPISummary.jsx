@@ -20,25 +20,25 @@ const KPISummary = ( data ) => {
       {/* Total Vehicles */}
       <div className="bg-white p-4 shadow rounded-lg text-center">
         <h3 className="text-xl font-semibold">Total Vehicles</h3>
-        <CountUp start={0} end={totalVehicles} duration={2} separator="," className="text-2xl font-bold text-teal-600" />
+        <CountUp start={0} end={totalVehicles} duration={2} separator="," className="text-2xl font-bold text-primary-600" />
       </div>
 
       {/* CAFV Eligible */}
       <div className="bg-white p-4 shadow rounded-lg text-center">
         <h3 className="text-xl font-semibold">CAFV Eligible (%)</h3>
-        <CountUp start={0} end={((cafvEligible / totalVehicles) * 100).toFixed(1)} duration={2} decimals={1} className="text-2xl font-bold text-teal-600" />
+        <CountUp start={0} end={((cafvEligible / totalVehicles) * 100).toFixed(1)} duration={2} decimals={1} className="text-2xl font-bold text-primary-600" />
       </div>
 
       {/* Average MSRP */}
       <div className="bg-white p-4 shadow rounded-lg text-center">
         <h3 className="text-xl font-semibold">Average MSRP</h3>
-        <CountUp start={0} end={avgMsrp} duration={2} decimals={2} prefix="$" className="text-2xl font-bold text-teal-600" />
+        <CountUp start={0} end={avgMsrp} duration={2} decimals={2} prefix="$" className="text-2xl font-bold text-primary-600" />
       </div>
 
       {/* Average Electric Range */}
       <div className="bg-white p-4 shadow rounded-lg text-center">
         <h3 className="text-xl font-semibold">Average Electric Range</h3>
-        <CountUp start={0} end={avgRange} duration={2} decimals={1} suffix=" miles" className="text-2xl font-bold text-teal-600" />
+        <CountUp start={0} end={avgRange} duration={2} decimals={1} suffix=" miles" className="text-2xl font-bold text-primary-600" />
       </div>
     </div>
   );

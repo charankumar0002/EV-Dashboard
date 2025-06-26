@@ -36,8 +36,8 @@ const GeographicalInsights = (data) => {
       {
         label: "Vehicle Count",
         data: Object.values(cityData), // Counts for each city
-        backgroundColor: "#60a5fa",
-        hoverBackgroundColor: "#3b82f6",
+        backgroundColor: "#2563eb",
+        hoverBackgroundColor: "#1d4ed8",
       },
     ],
   };
@@ -77,7 +77,7 @@ const GeographicalInsights = (data) => {
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl font-bold">Geographical Vehicle Distribution</h2>
+      <h2 className="text-primary-600 text-xl font-bold">Geographical Vehicle Distribution</h2>
       
       {/* Dropdown for selecting county */}
       <div className="mb-4">

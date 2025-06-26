@@ -23,15 +23,15 @@ const EVTypeDistribution = ( data ) => {
     datasets: [
       {
         data: Object.values(evTypes),
-        backgroundColor: ["#008080", "#f97316", "#60a5fa"],
-        hoverBackgroundColor: ["#005f5f", "#c65a09", "#3b82f6"],
+        backgroundColor: ["#0d9488", "#f97316", "#2563eb"],
+        hoverBackgroundColor: ["#115e59", "#c2410c", "#1d4ed8"],
       },
     ],
   };
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl font-bold mb-4">EV Type Distribution</h2>
+      <h2 className="text-primary-600 text-xl font-bold mb-4">EV Type Distribution</h2>
       <div className="h-full max-h-[500px] flex justify-center">
         <Pie ref={chartRef} data={chartData} options={{ responsive: true }} />
       </div>

@@ -32,7 +32,7 @@ const ElectricVehicleGraph = (data ) => {
         label: "Electric Vehicles",
         data: Object.values(aggregatedData), // Count of vehicles per year
         fill: false,
-        borderColor: "rgba(75,192,192,1)", // Line color
+        borderColor: "#0d9488", // Line color
         tension: 0.1,
       },
     ],
@@ -40,7 +40,7 @@ const ElectricVehicleGraph = (data ) => {
 
   return (
     <div className="mt-8 bg-white p-6 shadow-lg rounded-lg">
-    <h2 className="text-teal-600 text-xl mb-4">Electric Vehicle Adoption Over Time</h2>
+    <h2 className="text-primary-600 text-xl mb-4">Electric Vehicle Adoption Over Time</h2>
     <div className="h-[500px] flex justify-center" > {/* Set the max height for the chart here */}
       <Line
         data={chartData}

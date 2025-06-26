@@ -61,8 +61,8 @@ const EligibilityAnalysis = ( data ) => {
           eligibilityData["Eligibility unknown as battery range has not been researched"],
           eligibilityData["Not eligible due to low battery range"]
         ],
-        backgroundColor: ["#60a5fa", "#fca5a5", "#f59e0b"],
-        hoverBackgroundColor: ["#3b82f6", "#f87171", "#d97706"],
+        backgroundColor: ["#2563eb", "#fca5a5", "#f59e0b"],
+        hoverBackgroundColor: ["#1d4ed8", "#f87171", "#d97706"],
       },
     ],
   };
@@ -114,7 +114,7 @@ const EligibilityAnalysis = ( data ) => {
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl font-bold">CAFV Eligibility Analysis</h2>
+      <h2 className="text-primary-600 text-xl font-bold">CAFV Eligibility Analysis</h2>
 
       {/* Dropdown for selecting region */}
       <div className="mb-4">
@@ -138,7 +138,7 @@ const EligibilityAnalysis = ( data ) => {
 
       {/* Display eligibility percentage */}
       <div className="mb-4">
-        <h3 className="text-lg font-semibold text-teal-600">Eligibility Percentage:</h3>
+        <h3 className="text-lg font-semibold text-primary-600">Eligibility Percentage:</h3>
         <p>Eligible Vehicles: {eligibilityPercentage.eligible.toFixed(2)}%</p>
         <p>Unknown Eligibility: {eligibilityPercentage.unknown.toFixed(2)}%</p>
         <p>Ineligible Vehicles: {eligibilityPercentage.ineligible.toFixed(2)}%</p>

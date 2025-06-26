@@ -26,15 +26,12 @@ const MakerBasedAnalysis = (data) => {
   const [selectedMaker, setSelectedMaker] = useState(dataSet[0].Make);
   const [selectedInsight, setSelectedInsight] = useState("bar");
 
-  console.log("selectedMaker", selectedMaker);
-
   if (!dataSet || dataSet.length === 0) {
     return <div>No data available for the chart.</div>;
   }
 
   // Extract unique makers
   const uniqueMakers = [...new Set(dataSet.map((vehicle) => vehicle.Make))];
-  console.log("unique", uniqueMakers);
 
   // Filter data based on selected maker
   const filteredData = selectedMaker

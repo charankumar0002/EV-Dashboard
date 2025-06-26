@@ -6,7 +6,9 @@ import EligibilityAnalysis from "../components/EligibilityAnalysis";
 import KPISummary from "../components/KPISummary";
 import TopMakesModels from "../components/TopMakesModels";
 import MakerBasedAnalysis from "../components/MakerBasedAnalysis";
-import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb } from 'react-icons/fa';
+import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb, FaLayerGroup, FaChartLine } from 'react-icons/fa';
+import VehicleAgeDistribution from "../components/VehicleAgeDistribution";
+import RangeVsMSRPScatter from "../components/RangeVsMSRPScatter";
 import useRealTimeData from "../hooks/useRealTimeData";
 
 const Dashboard = () => {
@@ -82,6 +84,20 @@ const Dashboard = () => {
               <FaIndustry size={20} className="mr-2" />
               Maker Based Analysis
             </button>
+            <button
+              onClick={() => handleTabChange("AgeDistribution")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "AgeDistribution" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaLayerGroup size={20} className="mr-2" />
+              Vehicle Age Distribution
+            </button>
+            <button
+              onClick={() => handleTabChange("RangeVsMSRP")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "RangeVsMSRP" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaChartLine size={20} className="mr-2" />
+              Range vs MSRP
+            </button>
           </div>
         </section>
 
@@ -94,6 +110,8 @@ const Dashboard = () => {
             {activeTab === "CAFVEligibility" && <EligibilityAnalysis data={data} />}
             {activeTab === "GeographicalDistribution" && <GeographicalInsights data={data} />}
             {activeTab === "MakerBasedAnalysis" && <MakerBasedAnalysis data={data} />}
+            {activeTab === "AgeDistribution" && <VehicleAgeDistribution data={data} />}
+            {activeTab === "RangeVsMSRP" && <RangeVsMSRPScatter data={data} />}
           </div>
         </section>
       </main>

@@ -25,8 +25,8 @@ const CostEfficiencyAnalysis = ({ data }) => {
           const msrp = item["Base MSRP"] || 1; // Avoid division by 0
           return (range / msrp) * 1000;
         }),
-        backgroundColor: "#60a5fa",
-        hoverBackgroundColor: "#3b82f6",
+        backgroundColor: "#2563eb",
+        hoverBackgroundColor: "#1d4ed8",
       },
     ],
   };
@@ -71,7 +71,7 @@ const CostEfficiencyAnalysis = ({ data }) => {
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl font-bold mb-4">Cost Efficiency Analysis by Country</h2>
+      <h2 className="text-primary-600 text-xl font-bold mb-4">Cost Efficiency Analysis by Country</h2>
       
       {/* Country Dropdown */}
       <div className="mb-4">
@@ -80,7 +80,7 @@ const CostEfficiencyAnalysis = ({ data }) => {
         </label>
         <select
           id="countryDropdown"
-          className="border-gray-300 rounded-lg shadow-sm focus:border-teal-500 focus:ring-teal-500"
+          className="border-gray-300 rounded-lg shadow-sm focus:border-primary-500 focus:ring-primary-500"
           value={selectedCountry}
           onChange={(e) => setSelectedCountry(e.target.value)}
         >

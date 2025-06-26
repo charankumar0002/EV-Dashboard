@@ -50,13 +50,13 @@ console.log("unique",uniqueMakers)
         label: `Number of Vehicles (${selectedMaker})`,
         data: Object.values(modelCounts),
         backgroundColor: [
-          "#008080",
-          "#60a5fa",
+          "#0d9488",
+          "#2563eb",
           "#f97316",
           "#84cc16",
           "#d946ef",
         ],
-        borderColor: ["#005f5f", "#3b82f6", "#c65a09", "#659f11", "#b71ba1"],
+        borderColor: ["#115e59", "#1d4ed8", "#c2410c", "#659f11", "#b71ba1"],
         borderWidth: 1,
       },
     ],
@@ -64,11 +64,11 @@ console.log("unique",uniqueMakers)
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl font-bold">
+      <h2 className="text-primary-600 text-xl font-bold">
         Model Distribution by Maker
       </h2>
       <div className="my-4">
-        <label htmlFor="maker" className="text-teal-600 font-semibold">
+        <label htmlFor="maker" className="text-primary-600 font-semibold">
           Select Maker:
         </label>
         <select

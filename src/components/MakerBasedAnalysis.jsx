@@ -55,13 +55,13 @@ const MakerBasedAnalysis = (data) => {
         label: `Number of Vehicles (${selectedMaker})`,
         data: Object.values(modelCounts),
         backgroundColor: [
-          "#008080",
-          "#60a5fa",
+          "#0d9488",
+          "#2563eb",
           "#f97316",
           "#84cc16",
           "#d946ef",
         ],
-        borderColor: ["#005f5f", "#3b82f6", "#c65a09", "#659f11", "#b71ba1"],
+        borderColor: ["#115e59", "#1d4ed8", "#c2410c", "#659f11", "#b71ba1"],
         borderWidth: 1,
       },
     ],
@@ -84,8 +84,8 @@ const MakerBasedAnalysis = (data) => {
           const msrp = vehicle["Base MSRP"] || 1; // Avoid division by 0
           return (range / msrp) * 1000;
         }),
-        backgroundColor: "#60a5fa",
-        hoverBackgroundColor: "#3b82f6",
+        backgroundColor: "#2563eb",
+        hoverBackgroundColor: "#1d4ed8",
       },
     ],
   };
@@ -168,9 +168,9 @@ const MakerBasedAnalysis = (data) => {
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-teal-600 text-xl font-bold">Vehicle Data Insights by Maker</h2>
+      <h2 className="text-primary-600 text-xl font-bold">Vehicle Data Insights by Maker</h2>
       <div className="my-4">
-        <label htmlFor="maker" className="text-teal-600 font-semibold">
+        <label htmlFor="maker" className="text-primary-600 font-semibold">
           Select Maker:
         </label>
         <select
@@ -191,14 +191,14 @@ const MakerBasedAnalysis = (data) => {
       {/* Buttons to switch between insights */}
       <div className="my-4">
         <button
-          className={`p-2 m-2 border rounded ${selectedInsight === "bar" ? "bg-teal-600 text-white" : "bg-white text-teal-600"}`}
+          className={`p-2 m-2 border rounded ${selectedInsight === "bar" ? "bg-primary-600 text-white" : "bg-white text-primary-600"}`}
           onClick={() => setSelectedInsight("bar")}
         >
           Model Distribution by Maker
         </button>
       
         <button
-          className={`p-2 m-2 border rounded ${selectedInsight === "range" ? "bg-teal-600 text-white" : "bg-white text-teal-600"}`}
+          className={`p-2 m-2 border rounded ${selectedInsight === "range" ? "bg-primary-600 text-white" : "bg-white text-primary-600"}`}
           onClick={() => setSelectedInsight("range")}
         >
           Range per $1,000 MSRP

@@ -28,7 +28,7 @@ const Dashboard = () => {
   return (
     <div className="bg-gray-100 min-h-screen text-black flex flex-col">
 
-      <header className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white p-6 shadow-lg">
+      <header className="bg-gradient-to-r from-primary-500 to-cyan-600 text-white p-6 shadow-lg">
         <h1 className="text-3xl font-bold text-center tracking-wide">Electric Vehicle Dashboard</h1>
       </header>
 
@@ -42,42 +42,42 @@ const Dashboard = () => {
           <div className="flex justify-start space-x-4">
             <button
               onClick={() => handleTabChange("EVGraph")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "EVGraph" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "EVGraph" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
             >
               <FaChartBar size={20} className="mr-2" />
               Electric Vehicle Graph
             </button>
             <button
               onClick={() => handleTabChange("EVTypeDistribution")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "EVTypeDistribution" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "EVTypeDistribution" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
             >
               <FaCar size={20} className="mr-2" />
               EV Type Distribution
             </button>
             <button
               onClick={() => handleTabChange("TopMakesModels")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "TopMakesModels" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "TopMakesModels" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
             >
               <FaIndustry size={20} className="mr-2" />
               Top Makes and Models
             </button>
             <button
               onClick={() => handleTabChange("CAFVEligibility")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "CAFVEligibility" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "CAFVEligibility" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
             >
               <FaRegLightbulb size={20} className="mr-2" />
               CAFV Eligibility Analysis
             </button>
             <button
               onClick={() => handleTabChange("GeographicalDistribution")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "GeographicalDistribution" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "GeographicalDistribution" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
             >
               <FaMapMarkedAlt size={20} className="mr-2" />
               Geographical Distribution
             </button>
             <button
               onClick={() => handleTabChange("MakerBasedAnalysis")}
-              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "MakerBasedAnalysis" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "MakerBasedAnalysis" ? "bg-primary-600 text-white" : "bg-white text-primary-600 hover:bg-primary-50"}`}
             >
               <FaIndustry size={20} className="mr-2" />
               Maker Based Analysis
@@ -98,7 +98,7 @@ const Dashboard = () => {
         </section>
       </main>
 
-      <footer className="bg-teal-600 text-white p-4 text-center">
+      <footer className="bg-primary-600 text-white p-4 text-center">
         <p>© 2025 Electric Vehicle Dashboard</p>
       </footer>
     </div>

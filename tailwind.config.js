@@ -7,9 +7,27 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter', 'sans-serif'], 
+        sans: ['Inter', 'sans-serif'],
+      },
+      colors: {
+        primary: {
+          50: '#f0fdfa',
+          500: '#14b8a6',
+          600: '#0d9488',
+        },
+        secondary: {
+          50: '#eff6ff',
+          500: '#3b82f6',
+          600: '#2563eb',
+        },
+        accent: {
+          50: '#fff7ed',
+          500: '#f97316',
+          600: '#ea580c',
+        },
       },
     },
   },
   plugins: [],
 }
+

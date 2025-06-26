@@ -30,7 +30,6 @@ const DynamicVehiclePopularity = (data) => {
 
   // Extract unique makers
   const uniqueMakers = [...new Set(dataSet.map((vehicle) => vehicle.Make))];
-console.log("unique",uniqueMakers)
   // Filter data based on selected maker
   const filteredData = selectedMaker
     ? dataSet.filter((vehicle) => vehicle.Make === selectedMaker)

@@ -154,7 +154,7 @@ const MakerBasedAnalysis = (data) => {
       y: {
         title: {
           display: true,
-          text: "Number Of Vehicals",
+          text: "Number of Vehicles",
           color: "#333",
         },
         beginAtZero: true,

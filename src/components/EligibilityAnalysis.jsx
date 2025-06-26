@@ -114,19 +114,18 @@ const EligibilityAnalysis = ( data ) => {
 
   return (
     <div className="bg-white p-6 shadow-lg rounded-lg">
-      <h2 className="text-primary-600 text-xl font-bold">CAFV Eligibility Analysis</h2>
+      <h2 className="text-primary-600 text-xl font-bold mb-4">CAFV Eligibility Analysis</h2>
 
       {/* Dropdown for selecting region */}
-      <div className="mb-4">
-        <label htmlFor="regionDropdown" className="block text-gray-700 font-medium mb-2">
-          Select County :
+      <div className="mb-4 flex items-center space-x-2">
+        <label htmlFor="regionDropdown" className="text-gray-700 font-medium">
+          Select County:
         </label>
         <select
           id="regionDropdown"
-         className="ml-2 p-2 border border-gray-300 rounded-lg"
+          className="p-2 border border-gray-300 rounded-lg"
           value={selectedRegion}
           onChange={(e) => setSelectedRegion(e.target.value)}
-          
         >
           {regions.map((region) => (
             <option key={region} value={region}>
@@ -137,11 +136,19 @@ const EligibilityAnalysis = ( data ) => {
       </div>
 
       {/* Display eligibility percentage */}
-      <div className="mb-4">
-        <h3 className="text-lg font-semibold text-primary-600">Eligibility Percentage:</h3>
-        <p>Eligible Vehicles: {eligibilityPercentage.eligible.toFixed(2)}%</p>
-        <p>Unknown Eligibility: {eligibilityPercentage.unknown.toFixed(2)}%</p>
-        <p>Ineligible Vehicles: {eligibilityPercentage.ineligible.toFixed(2)}%</p>
+      <div className="mb-4 grid grid-cols-3 gap-4 text-center">
+        <div>
+          <p className="text-sm text-gray-500">Eligible</p>
+          <p className="font-semibold text-primary-600">{eligibilityPercentage.eligible.toFixed(2)}%</p>
+        </div>
+        <div>
+          <p className="text-sm text-gray-500">Unknown</p>
+          <p className="font-semibold text-primary-600">{eligibilityPercentage.unknown.toFixed(2)}%</p>
+        </div>
+        <div>
+          <p className="text-sm text-gray-500">Ineligible</p>
+          <p className="font-semibold text-primary-600">{eligibilityPercentage.ineligible.toFixed(2)}%</p>
+        </div>
       </div>
 
       <div className="h-full max-h-[500px] flex justify-center">

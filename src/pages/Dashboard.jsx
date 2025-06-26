@@ -66,7 +66,7 @@ const Dashboard = () => {
         </aside>
 
         <main className="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
-          <div className="h-72 flex items-center justify-center">
+          <div className="min-h-[600px] flex items-center justify-center">
             {activeTab === "EVGraph" && <ElectricVehicleGraph data={data} />}
             {activeTab === "EVTypeDistribution" && <EVTypeDistribution data={data} />}
             {activeTab === "TopMakesModels" && <TopMakesModels data={data} />}

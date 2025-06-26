@@ -6,6 +6,7 @@ import EligibilityAnalysis from "../components/EligibilityAnalysis";
 import KPISummary from "../components/KPISummary";
 import TopMakesModels from "../components/TopMakesModels";
 import MakerBasedAnalysis from "../components/MakerBasedAnalysis";
+<<<<<<< feature/update-dashboard-navigation-to-use-sidebar
 import {
   FaChartBar,
   FaCar,
@@ -13,6 +14,11 @@ import {
   FaIndustry,
   FaRegLightbulb,
 } from "react-icons/fa";
+=======
+import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb, FaLayerGroup, FaChartLine } from 'react-icons/fa';
+import VehicleAgeDistribution from "../components/VehicleAgeDistribution";
+import RangeVsMSRPScatter from "../components/RangeVsMSRPScatter";
+>>>>>>> main
 import useRealTimeData from "../hooks/useRealTimeData";
 
 const navItems = [
@@ -64,8 +70,55 @@ const Dashboard = () => {
               <Icon size={20} className="mr-2" />
               {label}
             </button>
+<<<<<<< feature/update-dashboard-navigation-to-use-sidebar
           ))}
         </aside>
+=======
+            <button
+              onClick={() => handleTabChange("TopMakesModels")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "TopMakesModels" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaIndustry size={20} className="mr-2" />
+              Top Makes and Models
+            </button>
+            <button
+              onClick={() => handleTabChange("CAFVEligibility")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "CAFVEligibility" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaRegLightbulb size={20} className="mr-2" />
+              CAFV Eligibility Analysis
+            </button>
+            <button
+              onClick={() => handleTabChange("GeographicalDistribution")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "GeographicalDistribution" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaMapMarkedAlt size={20} className="mr-2" />
+              Geographical Distribution
+            </button>
+            <button
+              onClick={() => handleTabChange("MakerBasedAnalysis")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "MakerBasedAnalysis" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaIndustry size={20} className="mr-2" />
+              Maker Based Analysis
+            </button>
+            <button
+              onClick={() => handleTabChange("AgeDistribution")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "AgeDistribution" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaLayerGroup size={20} className="mr-2" />
+              Vehicle Age Distribution
+            </button>
+            <button
+              onClick={() => handleTabChange("RangeVsMSRP")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "RangeVsMSRP" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaChartLine size={20} className="mr-2" />
+              Range vs MSRP
+            </button>
+          </div>
+        </section>
+>>>>>>> main
 
         <main className="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
           <div className="h-72 flex items-center justify-center">
@@ -75,6 +128,8 @@ const Dashboard = () => {
             {activeTab === "CAFVEligibility" && <EligibilityAnalysis data={data} />}
             {activeTab === "GeographicalDistribution" && <GeographicalInsights data={data} />}
             {activeTab === "MakerBasedAnalysis" && <MakerBasedAnalysis data={data} />}
+            {activeTab === "AgeDistribution" && <VehicleAgeDistribution data={data} />}
+            {activeTab === "RangeVsMSRP" && <RangeVsMSRPScatter data={data} />}
           </div>
         </main>
       </div>

@@ -6,7 +6,8 @@ import EligibilityAnalysis from "../components/EligibilityAnalysis";
 import KPISummary from "../components/KPISummary";
 import TopMakesModels from "../components/TopMakesModels";
 import MakerBasedAnalysis from "../components/MakerBasedAnalysis";
-import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb } from 'react-icons/fa';
+import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb, FaDollarSign } from 'react-icons/fa';
+import CostEfficiencyAnalysis from "../components/CostEfficiencyAnalysis";
 import useRealTimeData from "../hooks/useRealTimeData";
 
 const Dashboard = () => {
@@ -82,6 +83,13 @@ const Dashboard = () => {
               <FaIndustry size={20} className="mr-2" />
               Maker Based Analysis
             </button>
+            <button
+              onClick={() => handleTabChange("CostEfficiency")}
+              className={`text-xl font-semibold px-4 py-2 rounded-lg transition-colors duration-200 ${activeTab === "CostEfficiency" ? "bg-teal-600 text-white" : "bg-white text-teal-600 hover:bg-teal-50"}`}
+            >
+              <FaDollarSign size={20} className="mr-2" />
+              Cost Efficiency
+            </button>
           </div>
         </section>
 
@@ -94,6 +102,7 @@ const Dashboard = () => {
             {activeTab === "CAFVEligibility" && <EligibilityAnalysis data={data} />}
             {activeTab === "GeographicalDistribution" && <GeographicalInsights data={data} />}
             {activeTab === "MakerBasedAnalysis" && <MakerBasedAnalysis data={data} />}
+            {activeTab === "CostEfficiency" && <CostEfficiencyAnalysis data={data} />}
           </div>
         </section>
       </main>

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import CountUp from 'react-countup';
 
 const KPISummary = ( data ) => {
@@ -41,6 +42,10 @@ const KPISummary = ( data ) => {
       </div>
     </div>
   );
+};
+
+KPISummary.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default KPISummary;

@@ -1,89 +1,130 @@
-import { useState } from "react";
-import ElectricVehicleGraph from "../components/ElectricVehicleGraph";
-import EVTypeDistribution from "../components/EVTypeDistribution";
-import GeographicalInsights from "../components/GeographicalInsights";
-import EligibilityAnalysis from "../components/EligibilityAnalysis";
-import KPISummary from "../components/KPISummary";
-import TopMakesModels from "../components/TopMakesModels";
-import MakerBasedAnalysis from "../components/MakerBasedAnalysis";
-
-import { FaChartBar, FaCar, FaMapMarkedAlt, FaIndustry, FaRegLightbulb, FaLayerGroup, FaChartLine } from 'react-icons/fa';
-import VehicleAgeDistribution from "../components/VehicleAgeDistribution";
-import RangeVsMSRPScatter from "../components/RangeVsMSRPScatter";
+import KpiCard from "../components/KpiCard";
+import SampleLineChart from "../components/SampleLineChart";
+import SampleBarChart from "../components/SampleBarChart";
+import SamplePieChart from "../components/SamplePieChart";
+import SampleScatterChart from "../components/SampleScatterChart";
+import DarkModeToggle from "../components/DarkModeToggle";
 import useRealTimeData from "../hooks/useRealTimeData";
+import Insights from "../components/Insights";
+import { useState, useMemo } from "react";
+import Select from "react-select";
 
-const navItems = [
-  { id: "EVGraph", label: "Electric Vehicle Graph", icon: FaChartBar },
-  { id: "EVTypeDistribution", label: "EV Type Distribution", icon: FaCar },
-  { id: "TopMakesModels", label: "Top Makes and Models", icon: FaIndustry },
-  { id: "CAFVEligibility", label: "CAFV Eligibility Analysis", icon: FaRegLightbulb },
-  { id: "GeographicalDistribution", label: "Geographical Distribution", icon: FaMapMarkedAlt },
-  { id: "MakerBasedAnalysis", label: "Maker Based Analysis", icon: FaIndustry },
-];
-
-const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("EVGraph");
-  const apiUrl = import.meta.env.VITE_EV_API_URL || "/EVPopulationData.json";
+function Dashboard() {
+  const apiUrl = "/public/EVPopulationData.json";
   const { data, loading } = useRealTimeData(apiUrl, 30000);
 
-  const handleTabChange = (tab) => {
-    setActiveTab(tab);
-  };
+  // Multi-select filter state
+  const [years, setYears] = useState([]);
+  const [makes, setMakes] = useState([]);
+  const [regions, setRegions] = useState([]);
 
-  if (loading)
-    return (
-      <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <div className="text-xl text-gray-700">Loading...</div>
-      </div>
+  // Compute filter options from data
+  const yearOptions = useMemo(() => Array.from(new Set(data.map(d => d["Model Year"]))).filter(Boolean).sort().map(y => ({ value: y, label: y })), [data]);
+  const makeOptions = useMemo(() => Array.from(new Set(data.map(d => d.Make))).filter(Boolean).sort().map(m => ({ value: m, label: m })), [data]);
+  const regionOptions = useMemo(() => Array.from(new Set(data.map(d => d.County || d.City || d.State))).filter(Boolean).sort().map(r => ({ value: r, label: r })), [data]);
+
+  // Filter data based on selections
+  const filteredData = useMemo(() => {
+    return data.filter(d =>
+      (years.length === 0 || years.some(y => d["Model Year"] === y.value)) &&
+      (makes.length === 0 || makes.some(m => d.Make === m.value)) &&
+      (regions.length === 0 || regions.some(r => d.County === r.value || d.City === r.value || d.State === r.value))
     );
+  }, [data, years, makes, regions]);
+
+  // Compute KPI values from filtered data
+  const totalEVs = filteredData.length || 0;
+  const avgRange = filteredData.length ? (filteredData.reduce((sum, item) => sum + (item["Electric Range"] || 0), 0) / filteredData.length).toFixed(1) : "-";
+  const avgMsrp = filteredData.length ? (filteredData.reduce((sum, item) => sum + (item["Base MSRP"] || 0), 0) / filteredData.length).toLocaleString(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }) : "-";
+  const makeCounts = filteredData.reduce((acc, item) => {
+    acc[item.Make] = (acc[item.Make] || 0) + 1;
+    return acc;
+  }, {});
+  const mostPopularMake = Object.entries(makeCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || "-";
 
   return (
-    <div className="bg-gray-100 min-h-screen text-black flex flex-col">
-
-      <header className="bg-gradient-to-r from-teal-500 to-cyan-600 text-white p-6 shadow-lg">
-        <h1 className="text-3xl font-bold text-center tracking-wide">Electric Vehicle Dashboard</h1>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4">
+      {/* Header */}
+      <header className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">EV Dashboard</h1>
+        <DarkModeToggle />
       </header>
-
-      <section className="p-4 sm:p-6">
-        <KPISummary data={data} />
+      {/* Filter Description */}
+      <p className="mb-2 text-gray-600 dark:text-gray-300 text-sm">Use the filters below to analyze trends, compare makes, or focus on specific regions and years. All insights and charts update instantly based on your selections.</p>
+      {/* Multi-Select Filters */}
+      <section className="flex flex-wrap gap-4 mb-6 items-center">
+        <div className="min-w-[180px]">
+          <label className="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Year(s)</label>
+          <Select
+            isMulti
+            options={yearOptions}
+            value={years}
+            onChange={setYears}
+            placeholder="All Years"
+            classNamePrefix="react-select"
+          />
+        </div>
+        <div className="min-w-[180px]">
+          <label className="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Make(s)</label>
+          <Select
+            isMulti
+            options={makeOptions}
+            value={makes}
+            onChange={setMakes}
+            placeholder="All Makes"
+            classNamePrefix="react-select"
+          />
+        </div>
+        <div className="min-w-[180px]">
+          <label className="block text-gray-700 dark:text-gray-200 text-sm font-medium mb-1">Region(s)</label>
+          <Select
+            isMulti
+            options={regionOptions}
+            value={regions}
+            onChange={setRegions}
+            placeholder="All Regions"
+            classNamePrefix="react-select"
+          />
+        </div>
       </section>
-
-      <div className="flex flex-grow overflow-hidden">
-        {/* Sidebar Navigation */}
-        <aside className="w-60 bg-white p-4 shadow-md space-y-2">
-          {navItems.map(({ id, label, icon: Icon }) => (
-            <button
-              key={id}
-              onClick={() => handleTabChange(id)}
-              className={`flex items-center w-full px-3 py-2 rounded-lg text-left transition-colors duration-200 ${
-                activeTab === id ? "bg-teal-600 text-white" : "text-teal-600 hover:bg-teal-50"
-              }`}
-            >
-              <Icon size={20} className="mr-2" />
-              {label}
-            </button>
-          ))}
-        </aside>
-
-        <main className="flex-grow p-4 sm:p-6 lg:p-8 overflow-y-auto">
-          <div className="min-h-[600px] flex items-center justify-center">
-            {activeTab === "EVGraph" && <ElectricVehicleGraph data={data} />}
-            {activeTab === "EVTypeDistribution" && <EVTypeDistribution data={data} />}
-            {activeTab === "TopMakesModels" && <TopMakesModels data={data} />}
-            {activeTab === "CAFVEligibility" && <EligibilityAnalysis data={data} />}
-            {activeTab === "GeographicalDistribution" && <GeographicalInsights data={data} />}
-            {activeTab === "MakerBasedAnalysis" && <MakerBasedAnalysis data={data} />}
-            {activeTab === "AgeDistribution" && <VehicleAgeDistribution data={data} />}
-            {activeTab === "RangeVsMSRP" && <RangeVsMSRPScatter data={data} />}
-          </div>
-        </main>
-      </div>
-
-      <footer className="bg-primary-600 text-white p-4 text-center">
-        <p>© 2025 Electric Vehicle Dashboard</p>
+      {/* Insights Section */}
+      <div className="mb-2 text-gray-700 dark:text-gray-300 text-sm font-medium">Business Insights: Key takeaways and trends for your selected filters.</div>
+      <Insights data={filteredData} />
+      {/* KPI Cards */}
+      <div className="mb-2 text-gray-700 dark:text-gray-300 text-sm font-medium">KPIs: Core business metrics for your selection.</div>
+      <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <KpiCard label="Total EVs" value={loading ? "..." : totalEVs.toLocaleString()} />
+        <KpiCard label="Avg. Range" value={loading ? "..." : `${avgRange} mi`} />
+        <KpiCard label="Most Popular Make" value={loading ? "..." : mostPopularMake} />
+        <KpiCard label="Avg. MSRP" value={loading ? "..." : avgMsrp} />
+      </section>
+      {/* Charts Grid */}
+      <div className="mb-2 text-gray-700 dark:text-gray-300 text-sm font-medium">Charts: Visualize adoption, market share, type distribution, and value.</div>
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 h-72 flex flex-col items-center justify-center">
+          <div className="text-xs text-gray-500 mb-1">EV Adoption Over Time (Line Chart)</div>
+          <SampleLineChart data={filteredData} />
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 h-72 flex flex-col items-center justify-center">
+          <div className="text-xs text-gray-500 mb-1">Top Makes (Bar Chart)</div>
+          <SampleBarChart data={filteredData} />
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 h-72 flex flex-col items-center justify-center">
+          <div className="text-xs text-gray-500 mb-1">EV Type Distribution (Pie Chart)</div>
+          <SamplePieChart data={filteredData} />
+        </div>
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-4 h-72 flex flex-col items-center justify-center">
+          <div className="text-xs text-gray-500 mb-1">Range vs MSRP (Scatter Chart)</div>
+          <SampleScatterChart data={filteredData} />
+        </div>
+        {/* Optionally add a map or more charts here */}
+      </section>
+      {/* Footer */}
+      <footer className="mt-8 text-center text-gray-400 text-sm">
+        Data source: EVPopulationData.json | © {new Date().getFullYear()} EV Dashboard
       </footer>
     </div>
   );
-};
+}
 
 export default Dashboard;

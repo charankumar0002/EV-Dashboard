@@ -10,7 +10,7 @@ import { useState, useMemo } from "react";
 import Select from "react-select";
 
 function Dashboard() {
-  const apiUrl = "/public/EVPopulationData.json";
+  const apiUrl = "/EVPopulationData.json";
   const { data, loading } = useRealTimeData(apiUrl, 30000);
 
   // Multi-select filter state

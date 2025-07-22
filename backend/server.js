@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
@@ -9,19 +9,20 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 
 // Proxy: Open Charge Map (charging stations)
+// Set your Open Charge Map API key in the environment variable OCP_API_KEY or in a .env file
 app.get('/api/charging-stations', async (req, res) => {
   try {
-    // Example: fetch stations in the US, limit 50
     const { data } = await axios.get('https://api.openchargemap.io/v3/poi/', {
       params: {
         output: 'json',
         countrycode: req.query.countrycode || 'US',
         maxresults: req.query.maxresults || 50,
         compact: true,
-        verbose: false
+        verbose: false,
+        key: process.env.OCP_API_KEY || '' // <-- API key as query param
       },
       headers: {
-        'X-API-Key': '' // Optional: add your API key if you have one
+        'X-API-Key': process.env.OCP_API_KEY || '' // <-- Set your API key here
       }
     });
     res.json(data);
@@ -52,9 +53,10 @@ app.get('/api/analytics', async (req, res) => {
           countrycode: req.query.countrycode || 'US',
           maxresults: req.query.maxresults || 100,
           compact: true,
-          verbose: false
+          verbose: false,
+          key: process.env.OCP_API_KEY || '' // <-- API key as query param
         },
-        headers: { 'X-API-Key': '' }
+        headers: { 'X-API-Key': process.env.OCP_API_KEY || '' }
       })
     ]);
     const evModels = evRes.data;
@@ -103,4 +105,4 @@ app.get('/api/analytics', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-}); 
+});

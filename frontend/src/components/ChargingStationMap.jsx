@@ -21,28 +21,18 @@ function ChargingStationMap() {
   const [searching, setSearching] = useState(false);
   const [center, setCenter] = useState([39.8283, -98.5795]); // US center
   const [userLocation, setUserLocation] = useState(null);
-
-  // Try to get user's location on mount
-  useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const coords = [pos.coords.latitude, pos.coords.longitude];
-          setCenter(coords);
-          setUserLocation(coords);
-        },
-        () => {
-          // Permission denied or unavailable, keep default center
-        }
-      );
-    }
-  }, []);
+  const [locating, setLocating] = useState(false);
 
   useEffect(() => {
     fetch("http://localhost:5000/api/charging-stations?countrycode=US&maxresults=50")
       .then((res) => res.json())
       .then((data) => {
-        setStations(data);
+        if (Array.isArray(data)) {
+          setStations(data);
+        } else {
+          setStations([]);
+          console.error('Unexpected response:', data);
+        }
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -65,6 +55,23 @@ function ChargingStationMap() {
     }
   };
 
+  const handleFindMyLocation = () => {
+    if (!navigator.geolocation) return;
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const coords = [pos.coords.latitude, pos.coords.longitude];
+        setCenter(coords);
+        setUserLocation(coords);
+        setLocating(false);
+      },
+      () => {
+        setLocating(false);
+        alert("Unable to retrieve your location.");
+      }
+    );
+  };
+
   return (
     <div style={{ height: "500px", width: "100%" }}>
       <form onSubmit={handleSearch} style={{ marginBottom: 12, display: "flex", gap: 8 }}>
@@ -77,6 +84,9 @@ function ChargingStationMap() {
         />
         <button type="submit" style={{ padding: 8, borderRadius: 6, background: "#2563eb", color: "#fff", border: "none", fontWeight: 600 }}>
           {searching ? "Searching..." : "Search"}
+        </button>
+        <button type="button" onClick={handleFindMyLocation} style={{ padding: 8, borderRadius: 6, background: "#4ade80", color: "#1e293b", border: "none", fontWeight: 600 }}>
+          {locating ? "Locating..." : "Find My Location"}
         </button>
       </form>
       {loading ? (
@@ -117,4 +127,4 @@ function ChargingStationMap() {
   );
 }
 
-export default ChargingStationMap; 
+export default ChargingStationMap;

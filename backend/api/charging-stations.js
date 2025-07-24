@@ -15,6 +15,7 @@ module.exports = async (req, res) => {
         'X-API-Key': process.env.OCP_API_KEY || ''
       }
     });
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.json(data);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch charging stations', details: err.message });

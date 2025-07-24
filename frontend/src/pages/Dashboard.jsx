@@ -2,6 +2,7 @@ import React, { Suspense, useState, useMemo } from "react";
 import DarkModeToggle from "../components/DarkModeToggle";
 import useRealTimeData from "../hooks/useRealTimeData";
 import Select from "react-select";
+import { fetchEVModels } from "../utility/api";
 
 // Dynamically import large chart components
 const KpiCard = React.lazy(() => import("../components/KpiCard"));

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import PropTypes from "prop-types";
 import "leaflet/dist/leaflet.css";
+import { fetchChargingStations } from "../utility/api";
 
 function RecenterMap({ center }) {
   const map = useMap();
@@ -24,14 +25,13 @@ function ChargingStationMap() {
   const [locating, setLocating] = useState(false);
 
   useEffect(() => {
-    fetch("https://ev-dashboard-1a32.vercel.app/api/charging-stations?countrycode=US&maxresults=50")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setStations(data);
+    fetchChargingStations({ countrycode: "US", maxresults: 50 })
+      .then((res) => {
+        if (Array.isArray(res.data)) {
+          setStations(res.data);
         } else {
           setStations([]);
-          console.error('Unexpected response:', data);
+          console.error('Unexpected response:', res.data);
         }
         setLoading(false);
       })

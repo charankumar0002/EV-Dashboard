@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { fetchEVModels } from "../utility/api";
 
 function EVModelExplorer() {
   const [models, setModels] = useState([]);
@@ -7,13 +8,10 @@ function EVModelExplorer() {
   const [filterType, setFilterType] = useState("");
 
   useEffect(() => {
-    fetch("https://ev-dashboard-1a32.vercel.app/api/ev-models")
-      .then((res) => res.json())
-      .then((data) => {
-        setModels(data);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
+    fetchEVModels()
+      .then((res) => setModels(res.data))
+      .catch(() => setLoading(false))
+      .finally(() => setLoading(false));
   }, []);
 
   // Get unique types for filter dropdown

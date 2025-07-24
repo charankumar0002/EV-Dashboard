@@ -49,6 +49,7 @@ module.exports = async (req, res) => {
       .slice(0, 8)
       .map(([make, count]) => ({ make, count }));
 
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.json({
       yearCounts,
       topStates,
@@ -57,6 +58,7 @@ module.exports = async (req, res) => {
       totalStations: stations.length
     });
   } catch (err) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(500).json({ error: 'Failed to compute analytics', details: err.message });
   }
 };

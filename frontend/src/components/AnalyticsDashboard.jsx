@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { fetchAnalytics } from "../utility/api";
 
 ChartJS.register(
   CategoryScale,
@@ -30,10 +31,9 @@ function AnalyticsDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("https://ev-dashboard-1a32.vercel.app/api/analytics")
-      .then(res => res.json())
-      .then(data => {
-        setAnalytics(data);
+    fetchAnalytics()
+      .then(res => {
+        setAnalytics(res.data);
         setLoading(false);
       });
   }, []);

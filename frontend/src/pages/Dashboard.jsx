@@ -13,7 +13,7 @@ const Insights = React.lazy(() => import("../components/Insights"));
 
 function Dashboard() {
   // Change the API URL to point to the backend
-  const apiUrl = "http://localhost:5000/api/evs";
+  const apiUrl = "https://ev-dashboard-1a32.vercel.app/api/evs";
   const { data, loading } = useRealTimeData(apiUrl, 30000);
 console.log(data);
   // Multi-select filter state

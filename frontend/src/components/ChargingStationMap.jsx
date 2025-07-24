@@ -24,7 +24,7 @@ function ChargingStationMap() {
   const [locating, setLocating] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/charging-stations?countrycode=US&maxresults=50")
+    fetch("https://ev-dashboard-1a32.vercel.app/api/charging-stations?countrycode=US&maxresults=50")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

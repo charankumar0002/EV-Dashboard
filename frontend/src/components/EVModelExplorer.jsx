@@ -7,7 +7,7 @@ function EVModelExplorer() {
   const [filterType, setFilterType] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/ev-models")
+    fetch("https://ev-dashboard-1a32.vercel.app/api/ev-models")
       .then((res) => res.json())
       .then((data) => {
         setModels(data);
@@ -81,4 +81,4 @@ function EVModelExplorer() {
   );
 }
 
-export default EVModelExplorer; 
+export default EVModelExplorer;

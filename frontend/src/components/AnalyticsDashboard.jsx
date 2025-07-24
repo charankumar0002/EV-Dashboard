@@ -30,7 +30,7 @@ function AnalyticsDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/analytics")
+    fetch("https://ev-dashboard-1a32.vercel.app/api/analytics")
       .then(res => res.json())
       .then(data => {
         setAnalytics(data);
@@ -142,4 +142,4 @@ function AnalyticsDashboard() {
   );
 }
 
-export default AnalyticsDashboard; 
+export default AnalyticsDashboard;

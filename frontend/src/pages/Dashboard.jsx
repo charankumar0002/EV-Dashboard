@@ -2,7 +2,6 @@ import React, { Suspense, useState, useMemo } from "react";
 import DarkModeToggle from "../components/DarkModeToggle";
 import useRealTimeData from "../hooks/useRealTimeData";
 import Select from "react-select";
-import { fetchEVModels } from "../utility/api";
 
 // Dynamically import large chart components
 const KpiCard = React.lazy(() => import("../components/KpiCard"));
@@ -14,7 +13,7 @@ const Insights = React.lazy(() => import("../components/Insights"));
 
 function Dashboard() {
   // Change the API URL to point to the backend
-  const apiUrl = "https://ev-dashboard-1a32.vercel.app/api/evs";
+  const apiUrl = "https://ev-dashboard-1a32.vercel.app/api/ev-models";
   const { data, loading } = useRealTimeData(apiUrl, 30000);
 console.log(data);
   // Multi-select filter state

@@ -6,7 +6,12 @@ const axios = require('axios');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+const corsOptions = {
+  origin: 'https://ev-dashboard-neon.vercel.app',
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
 
 // Proxy: Open Charge Map (charging stations)
 // Set your Open Charge Map API key in the environment variable OCP_API_KEY or in a .env file
@@ -19,14 +24,15 @@ app.get('/api/charging-stations', async (req, res) => {
         maxresults: req.query.maxresults || 50,
         compact: true,
         verbose: false,
-        key: process.env.OCP_API_KEY || '' // <-- API key as query param
+        key: process.env.OCP_API_KEY || ''
       },
       headers: {
-        'X-API-Key': process.env.OCP_API_KEY || '' // <-- Set your API key here
+        'X-API-Key': process.env.OCP_API_KEY || ''
       }
     });
     res.json(data);
   } catch (err) {
+    console.error('Error in /api/charging-stations:', err);
     res.status(500).json({ error: 'Failed to fetch charging stations', details: err.message });
   }
 });
@@ -37,6 +43,7 @@ app.get('/api/ev-models', async (req, res) => {
     const { data } = await axios.get('https://ev-database.org/cheatsheet/JSON');
     res.json(data);
   } catch (err) {
+    console.error('Error in /api/ev-models:', err);
     res.status(500).json({ error: 'Failed to fetch EV models', details: err.message });
   }
 });
@@ -54,7 +61,7 @@ app.get('/api/analytics', async (req, res) => {
           maxresults: req.query.maxresults || 100,
           compact: true,
           verbose: false,
-          key: process.env.OCP_API_KEY || '' // <-- API key as query param
+          key: process.env.OCP_API_KEY || ''
         },
         headers: { 'X-API-Key': process.env.OCP_API_KEY || '' }
       })
@@ -99,6 +106,7 @@ app.get('/api/analytics', async (req, res) => {
       totalStations: stations.length
     });
   } catch (err) {
+    console.error('Error in /api/analytics:', err);
     res.status(500).json({ error: 'Failed to compute analytics', details: err.message });
   }
 });

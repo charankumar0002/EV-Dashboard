@@ -25,14 +25,9 @@ function ChargingStationMap() {
   const [locating, setLocating] = useState(false);
 
   useEffect(() => {
-    fetchChargingStations({ countrycode: "US", maxresults: 50 })
+    fetchChargingStations()
       .then((res) => {
-        if (Array.isArray(res.data)) {
-          setStations(res.data);
-        } else {
-          setStations([]);
-          console.error('Unexpected response:', res.data);
-        }
+        setStations(res);
         setLoading(false);
       })
       .catch(() => setLoading(false));

@@ -9,7 +9,7 @@ function EVModelExplorer() {
 
   useEffect(() => {
     fetchEVModels()
-      .then((res) => setModels(res.data))
+      .then((res) => setModels(res))
       .catch(() => setLoading(false))
       .finally(() => setLoading(false));
   }, []);

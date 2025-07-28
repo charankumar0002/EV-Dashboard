@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 function SampleLineChart({ data = [] }) {
+  if (!Array.isArray(data) || data.length === 0) {
+    return <div className="text-gray-500">No data available for line chart.</div>;
+  }
   // Aggregate by year
   const yearCounts = data.reduce((acc, item) => {
     const year = item["Model Year"];
@@ -12,6 +15,10 @@ function SampleLineChart({ data = [] }) {
   const chartData = Object.keys(yearCounts)
     .sort()
     .map((year) => ({ year, EVs: yearCounts[year] }));
+
+  if (chartData.length === 0) {
+    return <div className="text-gray-500">No data available for line chart.</div>;
+  }
 
   return (
     <div className="w-full h-full">
@@ -32,4 +39,4 @@ SampleLineChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default SampleLineChart; 
+export default SampleLineChart;

@@ -32,8 +32,8 @@ function AnalyticsDashboard() {
 
   useEffect(() => {
     fetchAnalytics()
-      .then(res => {
-        setAnalytics(res.data);
+      .then(data => {
+        setAnalytics(data);
         setLoading(false);
       });
   }, []);

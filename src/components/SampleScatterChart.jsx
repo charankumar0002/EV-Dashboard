@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 function SampleScatterChart({ data = [] }) {
+  if (!Array.isArray(data) || data.length === 0) {
+    return <div className="text-gray-500">No data available for scatter chart.</div>;
+  }
   // Filter for valid range and msrp
   const chartData = data
     .filter((item) => item["Electric Range"] > 0 && item["Base MSRP"] > 0)
@@ -10,6 +13,10 @@ function SampleScatterChart({ data = [] }) {
       msrp: item["Base MSRP"],
       label: `${item.Make} ${item.Model} (${item["Model Year"]})`,
     }));
+
+  if (chartData.length === 0) {
+    return <div className="text-gray-500">No data available for scatter chart.</div>;
+  }
 
   return (
     <div className="w-full h-full">
@@ -30,4 +37,4 @@ SampleScatterChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default SampleScatterChart; 
+export default SampleScatterChart;

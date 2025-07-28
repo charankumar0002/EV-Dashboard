@@ -4,6 +4,9 @@ import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from 'recha
 const COLORS = ['#06b6d4', '#818cf8', '#f59e42'];
 
 function SamplePieChart({ data = [] }) {
+  if (!Array.isArray(data) || data.length === 0) {
+    return <div className="text-gray-500">No data available for pie chart.</div>;
+  }
   // Aggregate by EV type
   const typeCounts = data.reduce((acc, item) => {
     const type = item["Electric Vehicle Type"];
@@ -12,6 +15,10 @@ function SamplePieChart({ data = [] }) {
     return acc;
   }, {});
   const chartData = Object.entries(typeCounts).map(([type, value]) => ({ type, value }));
+
+  if (chartData.length === 0) {
+    return <div className="text-gray-500">No data available for pie chart.</div>;
+  }
 
   return (
     <div className="w-full h-full">
@@ -34,4 +41,4 @@ SamplePieChart.propTypes = {
   data: PropTypes.arrayOf(PropTypes.object),
 };
 
-export default SamplePieChart; 
+export default SamplePieChart;
